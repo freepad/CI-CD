@@ -26,19 +26,12 @@ test.describe('Тесты для https://try.vikunja.io/', async () => {
     ).toBeVisible()
   })
 
-  test('Успешное добавление лэйбла', async ({ page }) => {
-    const manageLabelsPage = await LabelElement({ page })
-    await manageLabelsPage.create()
+  test('Успешное добавление и удаление лэйбла', async ({ page }) => {
+    const deleteLabel = await LabelElement({ page })
+    await deleteLabel.create()
     await expect(
       page.getByRole('main').getByRole('button').nth(1),
     ).toBeVisible()
-    const deleteLabele = await LabelElement({ page })
-    await deleteLabele.deleteLab()
-  })
-
-  test('Успешное удаление лэйбла', async ({ page }) => {
-    const deleteLabel = await LabelElement({ page })
-    await deleteLabel.create()
     await deleteLabel.deleteLab()
     await expect(
       page.getByText('You currently do not have any labels. Create a label.'),
