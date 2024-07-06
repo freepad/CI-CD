@@ -1,20 +1,4 @@
-export async function ManageLabelsPage({ page }) {
-  const visit = async () => {
-    await page.goto('https://try.vikunja.io')
-  }
-
-  const fillName = async name => {
-    await page.fill('[placeholder="e.g. frederick"]', name)
-  }
-
-  const fillPassword = async password => {
-    await page.fill('[placeholder="e.g. •••••••••••"]', password)
-  }
-
-  const clickLogin = async () => {
-    await page.click('button:has-text("Login")')
-  }
-
+export async function LabelElement({ page }) {
   const clickLabels = async () => {
     await page.click('a:has-text("Labels")')
   }
@@ -31,14 +15,20 @@ export async function ManageLabelsPage({ page }) {
     await page.click('button:has-text("Create")')
   }
 
-  const login = async () => {
-    await visit()
-    await fillName('Toma')
-    await fillPassword('Pipipupu')
-    await clickLogin()
+  const clickDelete = async () => {
+    await page.getByRole('main').getByRole('button').nth(1).click()
   }
 
-  const manage = async () => {
+  const doIt = async () => {
+    await page.getByRole('button', { name: 'Do it!' }).click()
+  }
+
+  const deleteLab = async () => {
+    await clickDelete()
+    await doIt()
+  }
+
+  const create = async () => {
     await clickLabels()
     await clickNewLabel()
     await fillTitle()
@@ -46,15 +36,11 @@ export async function ManageLabelsPage({ page }) {
   }
 
   return {
-    visit,
-    fillName,
-    fillPassword,
-    clickLogin,
     clickLabels,
     clickNewLabel,
     fillTitle,
     createLabel,
-    login,
-    manage,
+    create,
+    deleteLab,
   }
 }
