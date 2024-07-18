@@ -7,7 +7,7 @@ Given('I have a defined step', () => {
 })
 
 Given('user visit login page', () => {
-  I.visit('login')
+  I.amOnPage('login')
 })
 
 When('user enters credentials', () => {
